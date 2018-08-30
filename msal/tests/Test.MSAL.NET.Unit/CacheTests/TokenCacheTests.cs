@@ -40,9 +40,7 @@ using Microsoft.Identity.Core.Instance;
 using Microsoft.Identity.Core.OAuth2;
 using Microsoft.Identity.Core.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Test.Microsoft.Identity.Core.Unit;
-using Test.Microsoft.Identity.Core.Unit.Mocks;
-using Test.MSAL.NET.Unit.Mocks;
+using Test.Microsoft.Identity.Common;
 
 namespace Test.MSAL.NET.Unit.CacheTests
 {

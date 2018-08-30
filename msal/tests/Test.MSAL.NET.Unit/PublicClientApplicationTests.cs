@@ -44,7 +44,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using Microsoft.Identity.Core.Telemetry;
 using Test.MSAL.NET.Unit.Mocks;
-using Test.Microsoft.Identity.Core.Unit.Mocks;
+using Test.Microsoft.Identity.Common;
 
 namespace Test.MSAL.NET.Unit
 {
@@ -555,7 +555,8 @@ namespace Test.MSAL.NET.Unit
             };
 
             app.UserTokenCache = cache;
-            TokenCacheHelper.PopulateCache(cache.tokenCacheAccessor);
+            var myTCA = cache.tokenCacheAccessor as TokenCacheAccessor;
+            TokenCacheHelper.PopulateCache(myTCA);
             users = app.GetAccountsAsync().Result;
             Assert.IsNotNull(users);
             Assert.AreEqual(1, users.Count());

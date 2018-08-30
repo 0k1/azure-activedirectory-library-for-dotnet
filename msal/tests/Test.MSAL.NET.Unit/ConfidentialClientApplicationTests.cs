@@ -42,7 +42,7 @@ using Microsoft.Identity.Core.Helpers;
 using Microsoft.Identity.Core.Http;
 using Microsoft.Identity.Core.Instance;
 using NSubstitute;
-using Test.Microsoft.Identity.Core.Unit.Mocks;
+using Test.Microsoft.Identity.Common;
 
 namespace Test.MSAL.NET.Unit
 {

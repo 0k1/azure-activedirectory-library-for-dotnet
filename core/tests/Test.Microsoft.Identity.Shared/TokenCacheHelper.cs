@@ -31,7 +31,7 @@ using Microsoft.Identity.Core.Cache;
 using Microsoft.Identity.Core.Helpers;
 using Microsoft.Identity.Core.Instance;
 
-namespace Test.Microsoft.Identity.Core.Unit.Mocks
+namespace Test.Microsoft.Identity.Common
 {
     internal class TokenCacheHelper
     {

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>b2a27c6c-e07d-42ca-821c-bcb4dc8a83d7</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Test.Microsoft.Identity.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\CacheTests\MsalAccessTokenCacheKeyTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\CacheTests\MsalRefreshTokenCacheKeyTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\ClientInfoTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\HttpTests\HttpClientFactoryTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\HttpTests\HttpRequestTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\InstanceTests\AadAuthorityTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\InstanceTests\AdfsAuthorityTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\InstanceTests\B2cAuthorityTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\Mocks\Exceptions\TestClientException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\Mocks\Exceptions\TestException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\Mocks\Exceptions\TestExceptionFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\Mocks\Exceptions\TestServiceException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\Mocks\TestTelemetry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreTests\OAuth2Tests\TokenResponseTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\MockHelpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\MockHttpMessageHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Stubs\TestConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Stubs\TestLogger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Stubs\TestPlatformInformation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TokenCacheHelper.cs" />
+  </ItemGroup>
+</Project>

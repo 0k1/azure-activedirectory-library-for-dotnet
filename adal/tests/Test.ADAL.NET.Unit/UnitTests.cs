@@ -40,7 +40,7 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory.Internal;
 using Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.ClientCreds;
 using Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Helpers;
 using Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Http;
-using Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Instance;
+using adalInstance = Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Instance;
 using Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.OAuth2;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.ADAL.Common;
@@ -131,9 +131,9 @@ namespace Test.ADAL.NET.Unit
         [Description("Test for authority type detection")]
         public void AuthorityTypeDetectionTest()
         {
-            Assert.AreEqual(Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Instance.AuthorityType.AAD, Authenticator.DetectAuthorityType("https://login.windows.net/tenant/dummy/"));
-            Assert.AreEqual(Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Instance.AuthorityType.AAD, Authenticator.DetectAuthorityType("https://accounts-int.somethingelse.w/dummy/"));
-            Assert.AreEqual(Microsoft.IdentityModel.Clients.ActiveDirectory.Internal.Instance.AuthorityType.ADFS, Authenticator.DetectAuthorityType("https://abc.com/adfs/dummy/"));
+            Assert.AreEqual(adalInstance.AuthorityType.AAD, adalInstance.Authenticator.DetectAuthorityType("https://login.windows.net/tenant/dummy/"));
+            Assert.AreEqual(adalInstance.AuthorityType.AAD, adalInstance.Authenticator.DetectAuthorityType("https://accounts-int.somethingelse.w/dummy/"));
+            Assert.AreEqual(adalInstance.AuthorityType.ADFS, adalInstance.Authenticator.DetectAuthorityType("https://abc.com/adfs/dummy/"));
         }
 
 

@@ -39,8 +39,7 @@ using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Test.Microsoft.Identity.Core.Unit;
-using Test.Microsoft.Identity.Core.Unit.Mocks;
+using Test.Microsoft.Identity.Common;
 
 namespace Test.MSAL.NET.Unit
 {

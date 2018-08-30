@@ -34,6 +34,7 @@ using Microsoft.Identity.Core.Telemetry;
 using Microsoft.Identity.Core.Instance;
 using Microsoft.Identity.Core.Http;
 using Test.Microsoft.Identity.Core.Unit;
+using Test.Microsoft.Identity.Common;
 
 namespace Test.MSAL.NET.Unit
 {

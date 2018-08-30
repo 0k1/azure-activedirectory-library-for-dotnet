@@ -29,9 +29,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.Identity.Core.Helpers;
 
-namespace Test.Microsoft.Identity.Core.Unit
+namespace Test.Microsoft.Identity.Common
 {
-    class TestConstants
+    public class TestConstants
     {
         public static readonly string ScopeStr = "scope1 scope2";
         public static readonly SortedSet<string> Scope = new SortedSet<string>(new[] {"r1/scope1", "r1/scope2"});

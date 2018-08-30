@@ -32,48 +32,58 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Identity.Core;
 
-namespace Test.Microsoft.Identity.Core.Unit
+namespace Test.Microsoft.Identity.Common
 {
-    class TestPlatformInformation : CorePlatformInformationBase
+    internal class TestLogger : CoreLoggerBase
     {
-        static TestPlatformInformation()
+        public TestLogger(Guid correlationId) : base(correlationId)
         {
-            Instance = new TestPlatformInformation();
+            Default = this;
         }
 
-        public override string GetProductName()
+        public TestLogger(Guid correlationId, string component) : base(correlationId)
         {
-            return null;
+            Default = this;
         }
 
-        public override string GetEnvironmentVariable(string variable)
+        public override void Error(string message)
         {
-            return null;
         }
 
-        public override string GetProcessorArchitecture()
+        public override void ErrorPii(string message)
         {
-            return null;
         }
 
-        public override string GetOperatingSystem()
+        public override void Warning(string message)
         {
-            return null;
         }
 
-        public override string GetDeviceModel()
+        public override void WarningPii(string message)
         {
-            return null;
         }
 
-        public override string GetAssemblyFileVersionAttribute()
+        public override void Info(string message)
         {
-            return null;
         }
 
-        public override Task<bool> IsUserLocalAsync(RequestContext requestContext)
+        public override void InfoPii(string message)
         {
-            throw new NotImplementedException();
+        }
+
+        public override void Verbose(string message)
+        {
+        }
+
+        public override void VerbosePii(string message)
+        {
+        }
+
+        public override void Error(Exception ex)
+        {
+        }
+
+        public override void ErrorPii(Exception ex)
+        {
         }
     }
 }

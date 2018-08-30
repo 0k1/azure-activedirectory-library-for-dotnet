@@ -25,65 +25,39 @@
 //
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Identity.Core;
+using Microsoft.Identity.Core.Cache;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Test.Microsoft.Identity.Common;
 
-namespace Test.Microsoft.Identity.Core.Unit
+namespace Test.Microsoft.Identity.Core.Unit.CacheTests
 {
-    internal class TestLogger : CoreLoggerBase
+    [TestClass]
+    public class MsalRefreshTokenCacheKeyTests
     {
-        public TestLogger(Guid correlationId) : base(correlationId)
+        [TestMethod]
+        [TestCategory("RefreshTokenCacheKeyTests")]
+        public void ConstructorTest()
         {
-            Default = this;
+            MsalRefreshTokenCacheKey key = new MsalRefreshTokenCacheKey(TestConstants.ProductionPrefNetworkEnvironment,
+                TestConstants.ClientId, TestConstants.UserIdentifier);
+
+            Assert.IsNotNull(key);
+            Assert.AreEqual(TestConstants.ProductionPrefNetworkEnvironment, key.Environment);
+            Assert.AreEqual(TestConstants.ClientId, key.ClientId);
+            Assert.AreEqual(TestConstants.UserIdentifier, key.HomeAccountId);
         }
 
-        public TestLogger(Guid correlationId, string component) : base(correlationId)
+        [TestMethod]
+        [TestCategory("RefreshTokenCacheKeyTests")]
+        public void ToStringTest()
         {
-            Default = this;
-        }
+            MsalRefreshTokenCacheKey key = new MsalRefreshTokenCacheKey(TestConstants.ProductionPrefNetworkEnvironment,
+                TestConstants.ClientId, TestConstants.UserIdentifier);
 
-        public override void Error(string message)
-        {
-        }
-
-        public override void ErrorPii(string message)
-        {
-        }
-
-        public override void Warning(string message)
-        {
-        }
-
-        public override void WarningPii(string message)
-        {
-        }
-
-        public override void Info(string message)
-        {
-        }
-
-        public override void InfoPii(string message)
-        {
-        }
-
-        public override void Verbose(string message)
-        {
-        }
-
-        public override void VerbosePii(string message)
-        {
-        }
-
-        public override void Error(Exception ex)
-        {
-        }
-
-        public override void ErrorPii(Exception ex)
-        {
+            Assert.IsNotNull(key);
+            Assert.AreEqual(TestConstants.ProductionPrefNetworkEnvironment, key.Environment);
+            Assert.AreEqual(TestConstants.ClientId, key.ClientId);
+            Assert.AreEqual(TestConstants.UserIdentifier, key.HomeAccountId);
         }
     }
 }
