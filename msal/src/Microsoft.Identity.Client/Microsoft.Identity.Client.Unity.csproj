@@ -1,0 +1,46 @@
+<Project Sdk="MSBuild.Sdk.Extras/1.6.52">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;uap10.0</TargetFrameworks>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <AssemblyName>Microsoft.Identity.Client</AssemblyName>
+    <RootNamespace>Microsoft.Identity.Client</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>$(DefineConstants);NETSTANDARD1_3</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'uap10.0' ">
+    <DefineConstants>$(DefineConstants);WINDOWS_APP</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="**\*.cs" Exclude="obj\**\*.*;bin\**\*.*;Platforms\**\*.*" />
+    <Compile Remove="Platforms\**\*.*" />
+    <Compile Remove="Features\**\*.*" />
+    <EmbeddedResource Include="Properties\Microsoft.Identity.Client.rd.xml" />
+
+    <Compile Include="..\..\..\core\src\**\*.cs" Exclude="..\..\..\core\src\obj\**\*.*;..\..\..\core\src\properties\**\*.*" LinkBase="Core" />
+    <Compile Remove="..\..\..\core\src\Platforms\**\*.*" />
+    <Compile Remove="..\..\..\core\src\Features\**\*.*" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' ">
+    <Compile Include="Platforms\netstandard1.3\**\*.cs" />
+    <Compile Include="..\..\..\core\src\Platforms\netstandard1.3\**\*.cs" LinkBase="Core\Platforms\netstandard1.3" />
+    <Compile Include="..\..\..\core\src\Features\Cache\**\*.cs" LinkBase="Core\Features" />
+    <Compile Include="Features\PublicClient\**\*.cs" />
+    <Compile Include="Features\ConfidentialClient\**\*.cs" />
+    <Compile Include="Features\EventSource\**\*.cs" />
+    <Compile Include="Features\TokenCache\**\*.cs" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0' ">
+    <Compile Include="Platforms\uap\**\*.cs" />
+    <Compile Include="..\..\..\core\src\Platforms\uap\**\*.cs" LinkBase="Core\Platforms\uap" />
+    <Compile Include="Features\EventSource\**\*.cs" />
+    <Compile Include="Features\PublicClient\**\*.cs" />
+    <Compile Include="Features\*.cs" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+</Project>
