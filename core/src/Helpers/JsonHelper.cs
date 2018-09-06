@@ -25,8 +25,7 @@
 //
 //------------------------------------------------------------------------------
 
-using System.IO;
-using System.Runtime.Serialization.Json;
+using Newtonsoft.Json;
 using System.Text;
 
 namespace Microsoft.Identity.Core.Helpers
@@ -35,12 +34,23 @@ namespace Microsoft.Identity.Core.Helpers
     {
         internal static string SerializeToJson<T>(T toEncode)
         {
-            using (MemoryStream stream = new MemoryStream())
+            return JsonConvert.SerializeObject(toEncode);
+        }
+
+        internal static T TryToDeserializeFromJson<T>(string json, RequestContext requestContext)
+        {
+            T result = default(T);
+            try
             {
-                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof (T));
-                ser.WriteObject(stream, toEncode);
-                return Encoding.UTF8.GetString(stream.ToArray(), 0, (int) stream.Position);
+                result = DeserializeFromJson<T>(json);
             }
+            catch (JsonException ex)
+            {
+                requestContext.Logger.Warning(CoreExceptionFactory.Instance.GetPiiScrubbedDetails(ex));
+                requestContext.Logger.WarningPii(ex.ToString());
+            }
+
+            return result;
         }
 
         internal static T DeserializeFromJson<T>(string json)
@@ -50,45 +60,12 @@ namespace Microsoft.Identity.Core.Helpers
                 return default(T);
             }
 
-            return DeserializeFromJson<T>(json.ToByteArray());
-        }
-
-        internal static T TryToDeserializeFromJson<T>(string json, RequestContext requestContext)
-        {
-            if (string.IsNullOrEmpty(json))
-            {
-                return default(T);
-            }
-
-            T result = default(T);
-            try
-            {
-                result = DeserializeFromJson<T>(json.ToByteArray());
-            }
-            catch (System.Runtime.Serialization.SerializationException ex)
-            {
-                requestContext.Logger.Warning(CoreExceptionFactory.Instance.GetPiiScrubbedDetails(ex));
-                requestContext.Logger.WarningPii(ex.ToString());
-            }
-
-            return result;
+            return JsonConvert.DeserializeObject<T>(json);
         }
 
         internal static T DeserializeFromJson<T>(byte[] jsonByteArray)
         {
-            if (jsonByteArray == null || jsonByteArray.Length == 0)
-            {
-                return default(T);
-            }
-
-            T response;
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof (T));
-            using (MemoryStream stream = new MemoryStream(jsonByteArray))
-            {
-                response = ((T) serializer.ReadObject(stream));
-            }
-
-            return response;
+            return DeserializeFromJson<T>(Encoding.UTF8.GetString(jsonByteArray));
         }
     }
 }
