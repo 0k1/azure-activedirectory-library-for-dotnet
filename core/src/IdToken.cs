@@ -28,7 +28,6 @@
 using System;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using Microsoft.Identity.Core.Helpers;
 
 namespace Microsoft.Identity.Core
@@ -92,11 +91,7 @@ namespace Microsoft.Identity.Core
             try
             {
                 byte[] idTokenBytes = Base64UrlHelpers.DecodeToBytes(idTokenSegments[1]);
-                using (var stream = new MemoryStream(idTokenBytes))
-                {
-                    var serializer = new DataContractJsonSerializer(typeof(IdToken));
-                    idTokenBody = (IdToken) serializer.ReadObject(stream);
-                }
+                idTokenBody = JsonHelper.DeserializeFromJson<IdToken>(idTokenBytes);
             }
             catch (Exception exc)
             {

@@ -25,12 +25,12 @@
 //
 //------------------------------------------------------------------------------
 
+using Microsoft.Identity.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,15 +75,7 @@ namespace Microsoft.Identity.Core.Cache
         /// <returns>Deserialized authentication result</returns>
         public static AdalResultWrapper Deserialize(string serializedObject)
         {
-            AdalResultWrapper resultEx;
-            var serializer = new DataContractJsonSerializer(typeof(AdalResultWrapper));
-            byte[] serializedObjectBytes = Encoding.UTF8.GetBytes(serializedObject);
-            using (var stream = new MemoryStream(serializedObjectBytes))
-            {
-                resultEx = (AdalResultWrapper)serializer.ReadObject(stream);
-            }
-
-            return resultEx;
+            return JsonHelper.DeserializeFromJson<AdalResultWrapper>(serializedObject);
         }
 
         /// <summary>
@@ -92,15 +84,7 @@ namespace Microsoft.Identity.Core.Cache
         /// <returns>Serialized authentication result</returns>
         public string Serialize()
         {
-            string serializedObject;
-            var serializer = new DataContractJsonSerializer(typeof(AdalResultWrapper));
-            using (MemoryStream stream = new MemoryStream())
-            {
-                serializer.WriteObject(stream, this);
-                serializedObject = Encoding.UTF8.GetString(stream.ToArray(), 0, (int)stream.Position);
-            }
-
-            return serializedObject;
+            return JsonHelper.SerializeToJson(this);
         }
 
         internal Exception Exception { get; set; }
