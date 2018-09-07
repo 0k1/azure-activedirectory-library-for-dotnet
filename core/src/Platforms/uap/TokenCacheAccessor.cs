@@ -221,12 +221,12 @@ namespace Microsoft.Identity.Core
             for (int i = 0; i < segmentCount - 1; i++)
             {
                 Array.Copy(encryptedValue, i * MaxCompositeValueLength, subValue, 0, MaxCompositeValueLength);
-                composite[CacheValue + i] = subValue;
+                composite[CacheValue + i] = Convert.ToBase64String(subValue);
             }
 
             int copiedLength = (segmentCount - 1) * MaxCompositeValueLength;
             Array.Copy(encryptedValue, copiedLength, subValue, 0, encryptedValue.Length - copiedLength);
-            composite[CacheValue + (segmentCount - 1)] = subValue;
+            composite[CacheValue + (segmentCount - 1)] = Convert.ToBase64String(subValue);
             composite[CacheValueSegmentCount] = segmentCount;
         }
 
@@ -243,18 +243,18 @@ namespace Microsoft.Identity.Core
             byte[] encryptedValue = new byte[encyptedValueLength];
             if (segmentCount == 1)
             {
-                encryptedValue = (byte[])composite[CacheValue + 0];
+                encryptedValue = Convert.FromBase64String((string)composite[CacheValue + 0]);
             }
             else
             {
                 for (int i = 0; i < segmentCount - 1; i++)
                 {
-                    Array.Copy((byte[])composite[CacheValue + i], 0, encryptedValue, i * MaxCompositeValueLength,
+                    Array.Copy(Convert.FromBase64String((string)composite[CacheValue + i]), 0, encryptedValue, i * MaxCompositeValueLength,
                         MaxCompositeValueLength);
                 }
             }
 
-            Array.Copy((byte[])composite[CacheValue + (segmentCount - 1)], 0, encryptedValue,
+            Array.Copy(Convert.FromBase64String((string)composite[CacheValue + (segmentCount - 1)]), 0, encryptedValue,
                 (segmentCount - 1) * MaxCompositeValueLength,
                 encyptedValueLength - (segmentCount - 1) * MaxCompositeValueLength);
 

@@ -95,12 +95,12 @@ namespace Microsoft.Identity.Core.Cache
                 for (int i = 0; i < segmentCount - 1; i++)
                 {
                     Array.Copy(encryptedValue, i * MaxCompositeValueLength, subValue, 0, MaxCompositeValueLength);
-                    containerValues[CacheValue + i] = subValue;
+                    containerValues[CacheValue + i] = Convert.ToBase64String(subValue);
                 }
 
                 int copiedLength = (segmentCount - 1) * MaxCompositeValueLength;
                 Array.Copy(encryptedValue, copiedLength, subValue, 0, encryptedValue.Length - copiedLength);
-                containerValues[CacheValue + (segmentCount - 1)] = subValue;
+                containerValues[CacheValue + (segmentCount - 1)] = Convert.ToBase64String(subValue);
                 containerValues[CacheValueSegmentCount] = segmentCount;
             }
         }
@@ -118,17 +118,17 @@ namespace Microsoft.Identity.Core.Cache
             byte[] encryptedValue = new byte[encyptedValueLength];
             if (segmentCount == 1)
             {
-                encryptedValue = (byte[])containerValues[CacheValue + 0];
+                encryptedValue = Convert.FromBase64String((string)containerValues[CacheValue + 0]);
             }
             else
             {
                 for (int i = 0; i < segmentCount - 1; i++)
                 {
-                    Array.Copy((byte[])containerValues[CacheValue + i], 0, encryptedValue, i * MaxCompositeValueLength, MaxCompositeValueLength);
+                    Array.Copy(Convert.FromBase64String((string)containerValues[CacheValue + i]), 0, encryptedValue, i * MaxCompositeValueLength, MaxCompositeValueLength);
                 }
             }
 
-            Array.Copy((byte[])containerValues[CacheValue + (segmentCount - 1)], 0, encryptedValue, (segmentCount - 1) * MaxCompositeValueLength, encyptedValueLength - (segmentCount - 1) * MaxCompositeValueLength);
+            Array.Copy(Convert.FromBase64String((string)containerValues[CacheValue + (segmentCount - 1)]), 0, encryptedValue, (segmentCount - 1) * MaxCompositeValueLength, encyptedValueLength - (segmentCount - 1) * MaxCompositeValueLength);
             return CoreCryptographyHelpers.Decrypt(encryptedValue);
         }
     }
